@@ -161,7 +161,7 @@ In summary, remember these quirks about working with arrays and methods:
 
 Each problem reinforces the ideas from the above lesson: passing arrays to methods, modifying arrays inside methods, and returning arrays from methods.  
 
-Starter code templates should be placed in the `src/` folder of the repo.
+Annotated solutions to these problems can be found [here](SOLUTIONS.md).
 
 
 ## Problem 1 — Sum Using a Method

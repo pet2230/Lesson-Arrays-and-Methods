@@ -1,100 +1,110 @@
-# Arrays and Methods: Annotated Solutions
+# Methods and Arrays: Annotated Solutions (With Inline Comments)
 
-Each solution includes a brief explanation where helpful. 
+Each solution includes explanations to help understand the flow and purpose of each step.
 
 ## Problem 1 — Sum Using a Method
 
-We loop from index 0 to `arr.length - 1` and accumulate a running total.
+We loop through the array using indices and accumulate a running total.
 
 ```java
-public int sumArray(int[] arr) {
-    int total = 0;
-    for (int i = 0; i < arr.length; i++) {
-        total += arr[i];
-    }
-    return total;
+public void run() {
+    int[] arr = {3, 9, 2, 7, 4};
+
+    int result = sumArray(arr);
+    System.out.println("Sum = " + result);
 }
 
-public void run() {
-    int[] nums = {3, 9, 2, 7, 4};
+public int sumArray(int[] arr) {
+    int total = 0;
 
-    int result = sumArray(nums);
-    System.out.println("Sum = " + result);
+    // Loop through all elements using indices
+    for (int i = 0; i < arr.length; i++) {
+        total += arr[i];   // add element to total
+    }
+
+    return total;  // return the computed sum
 }
 ```
 
+
 ## Problem 2 — Add a Bonus to Every Mark
 
-Modifying an array inside a method changes the original array.  
-We update each value one index at a time.
+Because arrays are passed by reference, modifying `marks[]` inside the method changes it in `run()`.
 
 ```java
-public void addBonus(int[] marks, int bonus) {
-    for (int i = 0; i < marks.length; i++) {
-        marks[i] += bonus;
-    }
-}
-
 public void run() {
     int[] marks = {10, 7, 8, 9, 6};
 
+    // Print original marks
     System.out.print("Original: ");
     for (int i = 0; i < marks.length; i++) {
         System.out.print(marks[i] + " ");
     }
     System.out.println();
 
-    addBonus(marks, 2);
+    addBonus(marks, 2); // adds +2 to every mark
 
+    // Print updated marks
     System.out.print("After bonus: ");
     for (int i = 0; i < marks.length; i++) {
         System.out.print(marks[i] + " ");
+    }
+}
+
+public void addBonus(int[] marks, int bonus) {
+    // Modify each element by adding the bonus
+    for (int i = 0; i < marks.length; i++) {
+        marks[i] = marks[i] + bonus;
     }
 }
 ```
 
 ## Problem 3 — Count Above Threshold
 
-We compare each element to `limit` and count matches.
+This demonstrates returning a computed result based on array scanning.
 
 ```java
+public void run() {
+    int[] arr = new int[5];
+
+    // Read 5 integers
+    for (int i = 0; i < arr.length; i++) {
+        arr[i] = readInt("Enter value #" + (i + 1) + ": ");
+    }
+
+    int limit = readInt("Enter limit: ");
+
+    int count = countAbove(arr, limit);
+
+    System.out.println("Count above " + limit + ": " + count);
+}
+
 public int countAbove(int[] arr, int limit) {
     int count = 0;
+
+    // Count values strictly greater than limit
     for (int i = 0; i < arr.length; i++) {
         if (arr[i] > limit) {
             count++;
         }
     }
+
     return count;
-}
-
-public void run() {
-    int[] values = {8, 12, 3, 14, 6};
-    int limit = 10;
-
-    int result = countAbove(values, limit);
-    System.out.println("Count above " + limit + ": " + result);
 }
 ```
 
-## Problem 4 — Copy Array (Method Returns New Array)
 
-Copying using a loop ensures we create a *new* array rather than another reference.
+## Problem 4 — Copy Array (Method Returns a New Array)
+
+We manually copy the elements by index to ensure understanding.
 
 ```java
-public int[] copyArray(int[] arr) {
-    int[] copy = new int[arr.length];
-
-    for (int i = 0; i < arr.length; i++) {
-        copy[i] = arr[i];
-    }
-    return copy;
-}
-
 public void run() {
     int[] original = {4, 1, 9};
-    int[] result = copyArray(original);
 
+    int[] copy = copyArray(original);
+
+    // Print both arrays
     System.out.print("Original: ");
     for (int i = 0; i < original.length; i++) {
         System.out.print(original[i] + " ");
@@ -102,49 +112,58 @@ public void run() {
     System.out.println();
 
     System.out.print("Copy:     ");
-    for (int i = 0; i < result.length; i++) {
-        System.out.print(result[i] + " ");
+    for (int i = 0; i < copy.length; i++) {
+        System.out.print(copy[i] + " ");
     }
 }
+
+public int[] copyArray(int[] arr) {
+
+    int[] result = new int[arr.length]; // new array of same size
+
+    // Copy values one by one
+    for (int i = 0; i < arr.length; i++) {
+        result[i] = arr[i];
+    }
+
+    return result; // return new independent array
+}
 ```
+
 
 ## Problem 5 — Extract the Middle Pair
 
-For an even-length array, the two middle elements begin at index `length / 2 - 1`.
+We compute middle indices using `length/2`.
 
 ```java
-public int[] middleTwo(int[] nums) {
-    int mid = nums.length / 2;
-
-    int[] result = new int[2];
-    result[0] = nums[mid - 1];
-    result[1] = nums[mid];
-    return result;
-}
-
 public void run() {
     int[] nums = {4, 7, 9, 12, 15, 20};
 
-    int[] result = middleTwo(nums);
+    int[] mid = middleTwo(nums);
 
-    System.out.print("Middle two result: ");
-    for (int i = 0; i < result.length; i++) {
-        System.out.print(result[i] + " ");
-    }
+    System.out.println("Middle two result: " + mid[0] + " " + mid[1]);
+}
+
+public int[] middleTwo(int[] nums) {
+
+    int middle = nums.length / 2; // right-middle index
+    int leftMiddle = middle - 1;  // left-middle index
+
+    int[] result = new int[2];
+
+    result[0] = nums[leftMiddle];
+    result[1] = nums[middle];
+
+    return result;
 }
 ```
 
+
 ## Problem 6 — Multiply All Elements
 
-Modifying in-place updates the caller's array.
+Array modification happens directly in the original array.
 
 ```java
-public void multiplyAll(int[] arr, int factor) {
-    for (int i = 0; i < arr.length; i++) {
-        arr[i] *= factor;
-    }
-}
-
 public void run() {
     int[] arr = {2, 4, 6};
 
@@ -154,55 +173,62 @@ public void run() {
     }
     System.out.println();
 
-    multiplyAll(arr, 3);
+    multiplyAll(arr, 3); // modify array in-place
 
     System.out.print("After:  ");
     for (int i = 0; i < arr.length; i++) {
         System.out.print(arr[i] + " ");
     }
 }
+
+public void multiplyAll(int[] arr, int factor) {
+
+    // Multiply each element
+    for (int i = 0; i < arr.length; i++) {
+        arr[i] = arr[i] * factor;
+    }
+}
 ```
 
-## Problem 7 — Index of Target
 
-Return the first index where `target` appears, or `-1` if not found.
+## Problem 7 — Index of Target (Search Method)
+
+A simple linear search using indices.
 
 ```java
+public void run() {
+    int[] arr = {5, 8, 2, 8, 1};
+
+    int target = readInt("Enter target: ");
+
+    int result = findIndex(arr, target);
+
+    System.out.println("Found at index: " + result);
+}
+
 public int findIndex(int[] arr, int target) {
+
+    // Scan array until match found
     for (int i = 0; i < arr.length; i++) {
         if (arr[i] == target) {
-            return i;
+            return i; // return the first match
         }
     }
-    return -1;
-}
 
-public void run() {
-    int[] nums = {5, 8, 2, 8, 1};
-    int target = 8;
-
-    int index = findIndex(nums, target);
-    System.out.println("Found at index: " + index);
+    return -1; // not found
 }
 ```
+
 
 ## Problem 8 — Reverse Copy
 
-A reverse copy walks the original array backward.
+The new array is filled from back to front.
 
 ```java
-public int[] reverseCopy(int[] arr) {
-    int[] reversed = new int[arr.length];
-
-    for (int i = 0; i < arr.length; i++) {
-        reversed[i] = arr[arr.length - 1 - i];
-    }
-    return reversed;
-}
-
 public void run() {
     int[] arr = {3, 7, 1, 9};
-    int[] rev = reverseCopy(arr);
+
+    int[] reversed = reverseCopy(arr);
 
     System.out.print("Original: ");
     for (int i = 0; i < arr.length; i++) {
@@ -211,25 +237,30 @@ public void run() {
     System.out.println();
 
     System.out.print("Reversed: ");
-    for (int i = 0; i < rev.length; i++) {
-        System.out.print(rev[i] + " ");
+    for (int i = 0; i < reversed.length; i++) {
+        System.out.print(reversed[i] + " ");
     }
+}
+
+public int[] reverseCopy(int[] arr) {
+
+    int[] result = new int[arr.length];
+
+    // Fill result from end to beginning
+    for (int i = 0; i < arr.length; i++) {
+        result[i] = arr[arr.length - 1 - i];
+    }
+
+    return result;
 }
 ```
 
+
 ## Problem 9 — Replace Negatives
 
-We check each value and assign zero where needed.
+Modify only negative elements.
 
 ```java
-public void replaceNegatives(int[] arr) {
-    for (int i = 0; i < arr.length; i++) {
-        if (arr[i] < 0) {
-            arr[i] = 0;
-        }
-    }
-}
-
 public void run() {
     int[] arr = {-3, 4, -1, 7};
 
@@ -240,29 +271,46 @@ public void run() {
         System.out.print(arr[i] + " ");
     }
 }
+
+public void replaceNegatives(int[] arr) {
+
+    // Only replace negatives
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] < 0) {
+            arr[i] = 0;
+        }
+    }
+}
 ```
+
 
 ## Problem 10 — Pairwise Sums
 
-The resulting array has length `arr.length - 1` because sums exist between neighbours.
+Each result element is the sum of two neighbours.
 
 ```java
-public int[] pairwiseSums(int[] arr) {
-    int[] result = new int[arr.length - 1];
-
-    for (int i = 0; i < result.length; i++) {
-        result[i] = arr[i] + arr[i + 1];
-    }
-    return result;
-}
-
 public void run() {
     int[] arr = {4, 6, 2, 5};
-    int[] sums = pairwiseSums(arr);
+
+    int[] result = pairwiseSums(arr);
 
     System.out.print("Pairwise sums: ");
-    for (int i = 0; i < sums.length; i++) {
-        System.out.print(sums[i] + " ");
+    for (int i = 0; i < result.length; i++) {
+        System.out.print(result[i] + " ");
     }
 }
+
+public int[] pairwiseSums(int[] arr) {
+
+    // New array is one element shorter
+    int[] sums = new int[arr.length - 1];
+
+    // Add pairs of neighbours
+    for (int i = 0; i < sums.length; i++) {
+        sums[i] = arr[i] + arr[i + 1];
+    }
+
+    return sums;
+}
 ```
+
